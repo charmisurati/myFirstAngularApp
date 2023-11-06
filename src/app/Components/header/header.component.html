@@ -1,0 +1,26 @@
+<mat-toolbar class="mat-elevation-z10" color="primary" fxLayout="row">
+    <div>
+        <a class="valign-center" mat-icon-button [routerLink]="['']">
+            <mat-icon>home</mat-icon>
+            <div style="margin-left:5px;">My Project</div>
+        </a>
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="20px" class="menu-items">
+            <li><a routerLink="/Home">Home</a></li>
+            <li><a routerLink="/About">About</a></li>
+            <li>
+                <mat-form-field>
+                    <mat-label>Profile</mat-label>
+                    <mat-select>
+                        <mat-option>
+                            <a routerLink="/Register">Register</a>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </li>
+            <!-- <li><a routerLink="/Profile">Profile</a></li> -->
+            <!-- <li><button (click)="GoToProfile()">Profile</button></li> -->
+        </ul>
+    </div>
+</mat-toolbar>
