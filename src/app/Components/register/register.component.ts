@@ -40,11 +40,11 @@ export class RegisterComponent {
     )
   }
 
-  // getControl(name: any): AbstractControl | null {
+  getControl(name: any): AbstractControl | null {
 
-  //   return this.form.get(name)
+    return this.form.get(name)
 
-  // }
+  }
 
  
 
