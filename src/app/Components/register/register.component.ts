@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidateService } from 'src/app/Services/validate.service';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { matchValidator } from 'src/app/Validators/passwordMatch';
+
+
+
 
 @Component({
   selector: 'app-register',
@@ -12,7 +15,7 @@ export class RegisterComponent {
   form!: FormGroup;
   isSubmit = false;
 
-  constructor(private fb: FormBuilder, private v: ValidateService){}
+  constructor(private fb: FormBuilder){}
 
   ngOnInit(){
     this.form = this.fb.group({
@@ -20,40 +23,39 @@ export class RegisterComponent {
       lastName : ['',Validators.required],
       DOB : ['',Validators.required],
       email : ['', [Validators.required, Validators.email]],
-      phone:  ['',Validators.required],
-      password: ['', Validators.required],
-      confirm_password: ['', Validators.required],
-      
-    },
-
-    this.v.passwordMatch('password', 'confirm_password')
-    // [CustomValidators.MatchValidator('password', 'confirmPassword')]
+      phone:  ['',Validators.required],      
+     
+      password: ['', [
+        Validators.required,
+        // Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.minLength(6),
+        Validators.maxLength(25),
+        matchValidator('confirm_password', true)
+      ]],
+      confirm_password: ['', [
+        Validators.required,
+        matchValidator('password')
+      ]],
+    }, 
     )
   }
 
-  get confirmPasswordControl() {
-    return this.form.get('confirmPassword');
-  }
+  // getControl(name: any): AbstractControl | null {
 
-  public getConfirmPasswordError() {
-    const control: AbstractControl 
-    | any= this.confirmPasswordControl;
-    return control.hasError('required')
-      ? 'Please confirm the  password'
-      : control.hasError('passwordMismatch')
-      ? 'The passwords do not match'
-      : '';
-  }
-  
-  Submit() {   
-    console.log(this.form);
+  //   return this.form.get(name)
+
+  // }
+
+ 
+
+  Submit() {         
     if (!this.form.valid) {
       this.isSubmit = true;
     }
     else{
       this.isSubmit = false;
       let model = this.form.value;
-      debugger
+      // debugger
     }
 
 
